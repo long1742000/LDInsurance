@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LDInsurance.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace LDInsurance
 {
@@ -24,6 +26,13 @@ namespace LDInsurance
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<LDInsuranceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LDInsurance")));
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.Cookie.Name = "LDInsurance";
+                options.IdleTimeout = new TimeSpan(0, 60, 0);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +54,16 @@ namespace LDInsurance
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.UseEndpoints(endpoints =>
             {
