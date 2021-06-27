@@ -16,16 +16,13 @@
 <body>
     <header>
         <partial name="_Logo.cshtml" />
+        <div class="container-fluid">
+            <partial name="_Menu.cshtml" />
+            <hr />
+            @RenderBody()
+        </div>
     </header>
-    <div class="container-fluid">
-        <partial name="_Menu.cshtml" />
-        <hr />
-        @RenderBody() 
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <partial name="_Footer.cshtml" />
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

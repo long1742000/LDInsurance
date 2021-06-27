@@ -7,27 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LDInsurance.Data;
 using LDInsurance.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
 
 namespace LDInsurance.Controllers
 {
-    public class AccountsController : Controller
+    public class VehiclesController : Controller
     {
         private readonly LDInsuranceContext _context;
 
-        public AccountsController(LDInsuranceContext context)
+        public VehiclesController(LDInsuranceContext context)
         {
             _context = context;
         }
 
-        // GET: Accounts
+        // GET: Vehicles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Accounts.ToListAsync());
+            var lDInsuranceContext = _context.Vehicles.Include(v => v.Account).Include(v => v.VehicleType);
+            return View(await lDInsuranceContext.ToListAsync());
         }
 
-        // GET: Accounts/Details/5
+        // GET: Vehicles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +34,45 @@ namespace LDInsurance.Controllers
                 return NotFound();
             }
 
-            var account = await _context.Accounts
+            var vehicle = await _context.Vehicles
+                .Include(v => v.Account)
+                .Include(v => v.VehicleType)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (account == null)
+            if (vehicle == null)
             {
                 return NotFound();
             }
 
-            return View(account);
+            return View(vehicle);
         }
 
-        // GET: Accounts/Create
+        // GET: Vehicles/Create
         public IActionResult Create()
         {
+            ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "ID");
+            ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "ID");
             return View();
         }
 
-        // POST: Accounts/Create
+        // POST: Vehicles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Phone,SSN,Username,Password,IsAdmin,Status")] Account account)
+        public async Task<IActionResult> Create([Bind("ID,AccountID,OwnerName,Name,Model,Version,Rate,VehicleNumber,VehicleTypeID,Status")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(account);
+                _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(account);
+            ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "ID", vehicle.AccountID);
+            ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "ID", vehicle.VehicleTypeID);
+            return View(vehicle);
         }
 
-        // GET: Accounts/Edit/5
+        // GET: Vehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +80,24 @@ namespace LDInsurance.Controllers
                 return NotFound();
             }
 
-            var account = await _context.Accounts.FindAsync(id);
-            if (account == null)
+            var vehicle = await _context.Vehicles.FindAsync(id);
+            if (vehicle == null)
             {
                 return NotFound();
             }
-            return View(account);
+            ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "ID", vehicle.AccountID);
+            ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "ID", vehicle.VehicleTypeID);
+            return View(vehicle);
         }
 
-        // POST: Accounts/Edit/5
+        // POST: Vehicles/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Phone,SSN,Username,Password,IsAdmin,Status")] Account account)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,AccountID,OwnerName,Name,Model,Version,Rate,VehicleNumber,VehicleTypeID,Status")] Vehicle vehicle)
         {
-            if (id != account.ID)
+            if (id != vehicle.ID)
             {
                 return NotFound();
             }
@@ -99,12 +106,12 @@ namespace LDInsurance.Controllers
             {
                 try
                 {
-                    _context.Update(account);
+                    _context.Update(vehicle);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AccountExists(account.ID))
+                    if (!VehicleExists(vehicle.ID))
                     {
                         return NotFound();
                     }
@@ -115,10 +122,12 @@ namespace LDInsurance.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(account);
+            ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "ID", vehicle.AccountID);
+            ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "ID", vehicle.VehicleTypeID);
+            return View(vehicle);
         }
 
-        // GET: Accounts/Delete/5
+        // GET: Vehicles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,59 +135,32 @@ namespace LDInsurance.Controllers
                 return NotFound();
             }
 
-            var account = await _context.Accounts
+            var vehicle = await _context.Vehicles
+                .Include(v => v.Account)
+                .Include(v => v.VehicleType)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (account == null)
+            if (vehicle == null)
             {
                 return NotFound();
             }
 
-            return View(account);
+            return View(vehicle);
         }
 
-        // POST: Accounts/Delete/5
+        // POST: Vehicles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var account = await _context.Accounts.FindAsync(id);
-            _context.Accounts.Remove(account);
+            var vehicle = await _context.Vehicles.FindAsync(id);
+            _context.Vehicles.Remove(vehicle);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AccountExists(int id)
+        private bool VehicleExists(int id)
         {
-            return _context.Accounts.Any(e => e.ID == id);
-        }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Login(string username, string password)
-        {
-            bool result = _context.Accounts.Any(acc => acc.Username == username && acc.Password == password);
-            if (result)
-            {
-                bool isAdmin = _context.Accounts.Where(acc => acc.Username == username).FirstOrDefault().IsAdmin;
-                HttpContext.Session.SetString("Username", username);
-                HttpContext.Session.SetInt32("IsAdmin", Convert.ToInt32(isAdmin));
-                if (!isAdmin)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Accounts", new { area = "Admin" });
-                }
-            }
-            else
-            {
-                ViewBag.Error = "Login failed";
-                return View();
-            }
+            return _context.Vehicles.Any(e => e.ID == id);
         }
     }
 }
