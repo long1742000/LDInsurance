@@ -54,7 +54,7 @@ namespace LDInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Status")] VehicleType vehicleType)
+        public async Task<IActionResult> Create([Bind("ID,Name,Type,Status")] VehicleType vehicleType)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace LDInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Status")] VehicleType vehicleType)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Type,Status")] VehicleType vehicleType)
         {
             if (id != vehicleType.ID)
             {

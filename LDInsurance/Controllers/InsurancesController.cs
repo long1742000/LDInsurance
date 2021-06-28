@@ -20,7 +20,7 @@ namespace LDInsurance.Controllers
         }
 
         // GET: Insurances
-        public IActionResult Index(int? ID)
+        public IActionResult Index(int? id)
         {
             //Lấy list ProductType và lưu vào viewbag để đưa qua Dropdown
             var listTypeId = _context.InsuranceTypes;
@@ -28,10 +28,10 @@ namespace LDInsurance.Controllers
 
 
             //Xét trường hợp hiển thị sản phẩm
-            if (ID != null && ID != -1)//Trường hợp sinh ra sản phẩm theo id
+            if (id != null && id != -1)//Trường hợp sinh ra sản phẩm theo id
             {
-                var InsuranceContext = _context.Insurances.Where(p => p.InsuranceTypeID == ID);
-                return View(InsuranceContext.ToList());
+                var eshopContext = _context.Insurances.Where(p => p.InsuranceTypeID == id);
+                return View(eshopContext.ToList());
             }
             else//Trường hợp sinh ra tất cả sản phẩm
             {
