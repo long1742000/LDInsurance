@@ -4,51 +4,50 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Insurance</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InsuranceType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InsuranceType.ID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VehicleType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VehicleType.ID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Period)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Period)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container-fluid" style="height:610px"   >
+    <div>
+        <table class="table" style="border: 1px solid; border-color: green">
+            <thead style="border: 1px solid; background-color: greenyellow" >
+                <tr>
+                    <th>
+                        Insurance Type
+                    </th>
+                    <th>
+                        Vehicle Type
+                    </th>
+                    <th>
+                        Insurance Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Period
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.InsuranceType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.VehicleType.Type) @Html.DisplayFor(model => model.VehicleType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Price) VNĐ
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Period) Months
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a asp-controller="Vehicles" asp-action="Register" asp-route-id="@Model.ID">Vehicle registration </a>
+    </div>
 </div>

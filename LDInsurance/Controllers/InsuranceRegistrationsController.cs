@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LDInsurance.Data;
 using LDInsurance.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace LDInsurance.Controllers
 {
@@ -161,6 +162,39 @@ namespace LDInsurance.Controllers
         private bool InsuranceRegistrationExists(int id)
         {
             return _context.InsuranceRegistrations.Any(e => e.ID == id);
+        }
+
+        public IActionResult Register()
+        {
+            HttpContext.Session.SetString("PageBeing", "Insurances");
+            if (HttpContext.Session.GetInt32("ID") == null)
+            {
+
+                return RedirectToAction("Login", "Accounts");
+            }
+            else
+            {
+                ViewData["InsuranceID"] = new SelectList(_context.Insurances, "ID", "ID");
+                ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "ID");
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Register([Bind("ID,VehicleID,InsuranceID,StartDate,EndDate,Price,Status")] InsuranceRegistration vehicle)
+        {
+            vehicle.Status = true;
+            vehicle.StartDate = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                _context.Add(vehicle);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "InsuranceRegistrations");
+            }
+            ViewData["InsuranceID"] = new SelectList(_context.Insurances, "ID", "ID");
+            ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "ID");
+            return View();
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,7 +10,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <style>
         #hover:hover {
-            background-color: greenyellow;
+            background-color: white;
+        }
+        #hover1:hover{
+            font-size:35px;
         }
     </style>
 </head>
@@ -21,6 +25,7 @@
             <hr />
             @RenderBody()
         </div>
+        <partial name="_Logo.cshtml" />
     </header>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

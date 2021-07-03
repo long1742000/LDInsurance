@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LDInsurance.Data;
 using LDInsurance.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace LDInsurance.Controllers
 {
@@ -22,6 +23,7 @@ namespace LDInsurance.Controllers
         // GET: Insurances
         public IActionResult Index(int? id)
         {
+            HttpContext.Session.SetString("PageBeing", "Insurances");
             //Lấy list ProductType và lưu vào viewbag để đưa qua Dropdown
             var listTypeId = _context.InsuranceTypes;
             ViewBag.listType = listTypeId;

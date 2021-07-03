@@ -54,7 +54,7 @@ namespace LDInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Status")] InsuranceType insuranceType)
+        public async Task<IActionResult> Create([Bind("ID,Name,Status")] InsuranceType insuranceType )
         {
             if (ModelState.IsValid)
             {
@@ -149,5 +149,7 @@ namespace LDInsurance.Controllers
         {
             return _context.InsuranceTypes.Any(e => e.ID == id);
         }
+
+
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LDInsurance.Data;
 using LDInsurance.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace LDInsurance.Controllers
 {
@@ -20,10 +21,19 @@ namespace LDInsurance.Controllers
         }
 
         // GET: Vehicles
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? id)
         {
-            var lDInsuranceContext = _context.Vehicles.Include(v => v.Account).Include(v => v.VehicleType);
-            return View(await lDInsuranceContext.ToListAsync());
+            HttpContext.Session.SetString("PageBeing", "Vehicles");
+            if (HttpContext.Session.GetInt32("ID") == null)
+            {
+
+                return RedirectToAction("Login", "Accounts");
+            }
+            else
+            {
+                var vehicleContext = _context.Vehicles.Where(p => p.AccountID == id);
+                return View(vehicleContext.ToList());
+            }
         }
 
         // GET: Vehicles/Details/5
@@ -162,5 +172,38 @@ namespace LDInsurance.Controllers
         {
             return _context.Vehicles.Any(e => e.ID == id);
         }
+
+        public IActionResult Register()
+        {
+            HttpContext.Session.SetString("PageBeing", "Insurances");
+            if (HttpContext.Session.GetInt32("ID") == null)
+            {
+
+                return RedirectToAction("Login", "Accounts");
+            }
+            else
+            {
+                ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "ID");
+                ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "ID");
+                return View();   
+            }
+        }
+
+            [HttpPost]
+            public IActionResult Register([Bind("ID,AccountID,OwnerName,Name,Model,Version,Rate,VehicleNumber,VehicleTypeID,Status")] Vehicle vehicle)
+            {
+                vehicle.AccountID = HttpContext.Session.GetInt32("ID");
+                vehicle.Status = true;
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(vehicle);
+                    _context.SaveChanges();
+                    return RedirectToAction("Register", "InsuranceRegistrations");
+                }
+                ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "ID", vehicle.AccountID);
+                ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "ID", vehicle.VehicleTypeID);
+                return View();
+            }
     }
 }

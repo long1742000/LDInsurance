@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace LDInsurance.Controllers
 {
@@ -20,10 +21,22 @@ namespace LDInsurance.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.CurrentUser = HttpContext.Session.GetString("CurrentUser") ?? "Guest";
+            HttpContext.Session.SetString("PageBeing", "Home");
             return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        public IActionResult Sitemap()
         {
             return View();
         }

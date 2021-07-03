@@ -22,9 +22,15 @@ namespace LDInsurance.Controllers
         }
 
         // GET: Accounts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Accounts.ToListAsync());
+            HttpContext.Session.SetString("PageBeing", "Accounts");
+            if (HttpContext.Session.GetString("CurrentUser") == null)
+            {
+
+                return View("Login");
+            }
+            return View(_context.Accounts.Where(acc => acc.Username == HttpContext.Session.GetString("CurrentUser")).ToList());
         }
 
         // GET: Accounts/Details/5
@@ -163,20 +169,60 @@ namespace LDInsurance.Controllers
             if (result)
             {
                 bool isAdmin = _context.Accounts.Where(acc => acc.Username == username).FirstOrDefault().IsAdmin;
-                HttpContext.Session.SetString("Username", username);
-                HttpContext.Session.SetInt32("IsAdmin", Convert.ToInt32(isAdmin));
+                HttpContext.Session.SetString("CurrentUser", username);
+                HttpContext.Session.SetInt32("ID", _context.Accounts.Where(acc => acc.Username == username).FirstOrDefault().ID);
+                ViewBag.BeLogin = true;
                 if (!isAdmin)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", HttpContext.Session.GetString("PageBeing"));
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Accounts", new { area = "Admin" });
+                    return RedirectToAction("Index", "Insurances", new { area = "Admin" });
                 }
             }
             else
             {
-                ViewBag.Error = "Login failed";
+                HttpContext.Session.SetInt32("Id", Convert.ToInt32(-1));
+                ViewBag.ErrorMess = "Login Fail !!!!!!!!!!!!!";
+                return View();
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Accounts");
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register([Bind("ID,Name,Phone,SSN,Username,Password,IsAdmin,Status")] Account account)
+        {
+            account.IsAdmin = false;
+            account.Status = true;
+
+            if (ModelState.IsValid)
+            {
+                var check = _context.Accounts.FirstOrDefault(s => s.Username == account.Username);
+                if(check == null) { 
+                    _context.Add(account);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index", "Accounts");
+                }
+                else
+                {
+                    
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.ErrorRegister = "Register Failed!!!";
                 return View();
             }
         }
