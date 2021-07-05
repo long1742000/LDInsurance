@@ -33,5 +33,7 @@ namespace LDInsurance.Models
         public bool Status { get; set; }
         public List<Vehicle> Vehicles { get; set; }
         public List<Testimonial> Testimonials { get; set; }
+        public List<Report> Reports { get; set; }
+        public List<InsuranceRegistration> InsuranceRegistrations { get; set; }
     }
 }

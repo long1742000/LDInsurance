@@ -12,16 +12,54 @@
         <div class="col-2">
             <nav class="nav flex-column">
                 <!--..................Menu.....................-->
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" asp-controller="Accounts" asp-action="Details" asp-route-id="@item.ID" style="color:000055"><i class="far fa-address-card"></i> Information</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Vehicles" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="fa fa-car"></i> Vehicles</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Reports" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="fas fa-file-alt"></i> Reports</a></li>
-                        <li class="nav-item"><a href="#" data-toggle="modal" data-target="#logoutModal" class="nav-link" style="color:000055"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                    </ul>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" asp-controller="Accounts" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="far fa-address-card"></i> Information</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Vehicles" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="fa fa-car"></i> Vehicles</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Reports" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="fas fa-file-alt"></i> Reports</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="InsuranceRegistrations" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="fas fa-clipboard-check"></i> Insurances</a></li>
+                    <li class="nav-item"><a href="#" data-toggle="modal" data-target="#logoutModal" class="nav-link" style="color:000055"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
             </nav>
         </div>
         <div class="col-10">
-            Long
+            <div class="container-fluid" style="height:610px">
+                <div>
+                    <h4>Information</h4>
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            Full Name:
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Phone Number:
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </dd>
+                        <dt class="col-sm-2">
+                            SSN:
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(modelItem => item.SSN)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Username:
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Password:
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(modelItem => item.Password)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
             <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">

@@ -8,6 +8,8 @@ namespace LDInsurance.Models
     public class Report
     {
         public int ID { get; set; }
+        public int? AccountID { get; set; }
+        public Account Account { get; set; }
         public int? VehicleID { get; set; }
         public Vehicle Vehicle { get; set; }
         public string Location { get; set; }

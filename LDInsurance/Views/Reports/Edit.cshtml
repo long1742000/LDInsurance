@@ -1,4 +1,4 @@
-﻿@model LDInsurance.Models.InsuranceRegistration
+﻿@model LDInsurance.Models.Report
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,7 +6,7 @@
 
 <h1>Edit</h1>
 
-<h4>InsuranceRegistration</h4>
+<h4>Report</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,24 +24,24 @@
                 <span asp-validation-for="VehicleID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InsuranceID" class="control-label"></label>
-                <select asp-for="InsuranceID" class="form-control" asp-items="ViewBag.InsuranceID"></select>
-                <span asp-validation-for="InsuranceID" class="text-danger"></span>
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
+                <label asp-for="Rate" class="control-label"></label>
+                <input asp-for="Rate" class="form-control" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="ClaimAmount" class="control-label"></label>
+                <input asp-for="ClaimAmount" class="form-control" />
+                <span asp-validation-for="ClaimAmount" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

@@ -23,7 +23,7 @@ namespace LDInsurance.Areas.Admin.Controllers
         // GET: Admin/InsuranceRegistrations
         public async Task<IActionResult> Index()
         {
-            var lDInsuranceContext = _context.InsuranceRegistrations.Include(i => i.Insurance).Include(i => i.Vehicle);
+            var lDInsuranceContext = _context.InsuranceRegistrations.Include(i => i.Account).Include(i => i.Insurance).Include(i => i.Vehicle);
             return View(await lDInsuranceContext.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace LDInsurance.Areas.Admin.Controllers
             }
 
             var insuranceRegistration = await _context.InsuranceRegistrations
+                .Include(i => i.Account)
                 .Include(i => i.Insurance)
                 .Include(i => i.Vehicle)
                 .FirstOrDefaultAsync(m => m.ID == id);
@@ -50,6 +51,7 @@ namespace LDInsurance.Areas.Admin.Controllers
         // GET: Admin/InsuranceRegistrations/Create
         public IActionResult Create()
         {
+            ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name");
             ViewData["InsuranceID"] = new SelectList(_context.Insurances, "ID", "ID");
             ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "ID");
             return View();
@@ -60,7 +62,7 @@ namespace LDInsurance.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,VehicleID,InsuranceID,StartDate,EndDate,Price,Status")] InsuranceRegistration insuranceRegistration)
+        public async Task<IActionResult> Create([Bind("ID,AccountID,VehicleID,InsuranceID,StartDate,EndDate,Price,Status")] InsuranceRegistration insuranceRegistration)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +70,7 @@ namespace LDInsurance.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name", insuranceRegistration.AccountID);
             ViewData["InsuranceID"] = new SelectList(_context.Insurances, "ID", "ID", insuranceRegistration.InsuranceID);
             ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "ID", insuranceRegistration.VehicleID);
             return View(insuranceRegistration);
@@ -86,6 +89,7 @@ namespace LDInsurance.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name", insuranceRegistration.AccountID);
             ViewData["InsuranceID"] = new SelectList(_context.Insurances, "ID", "ID", insuranceRegistration.InsuranceID);
             ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "ID", insuranceRegistration.VehicleID);
             return View(insuranceRegistration);
@@ -96,7 +100,7 @@ namespace LDInsurance.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,VehicleID,InsuranceID,StartDate,EndDate,Price,Status")] InsuranceRegistration insuranceRegistration)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,AccountID,VehicleID,InsuranceID,StartDate,EndDate,Price,Status")] InsuranceRegistration insuranceRegistration)
         {
             if (id != insuranceRegistration.ID)
             {
@@ -123,6 +127,7 @@ namespace LDInsurance.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name", insuranceRegistration.AccountID);
             ViewData["InsuranceID"] = new SelectList(_context.Insurances, "ID", "ID", insuranceRegistration.InsuranceID);
             ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "ID", insuranceRegistration.VehicleID);
             return View(insuranceRegistration);
@@ -137,6 +142,7 @@ namespace LDInsurance.Areas.Admin.Controllers
             }
 
             var insuranceRegistration = await _context.InsuranceRegistrations
+                .Include(i => i.Account)
                 .Include(i => i.Insurance)
                 .Include(i => i.Vehicle)
                 .FirstOrDefaultAsync(m => m.ID == id);

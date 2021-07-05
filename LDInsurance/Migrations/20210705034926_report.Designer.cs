@@ -4,14 +4,16 @@ using LDInsurance.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LDInsurance.Migrations
 {
     [DbContext(typeof(LDInsuranceContext))]
-    partial class LDInsuranceContextModelSnapshot : ModelSnapshot
+    [Migration("20210705034926_report")]
+    partial class report
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,9 +126,6 @@ namespace LDInsurance.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AccountID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -146,8 +145,6 @@ namespace LDInsurance.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AccountID");
 
                     b.HasIndex("InsuranceID");
 
@@ -324,10 +321,6 @@ namespace LDInsurance.Migrations
 
             modelBuilder.Entity("LDInsurance.Models.InsuranceRegistration", b =>
                 {
-                    b.HasOne("LDInsurance.Models.Account", "Account")
-                        .WithMany("InsuranceRegistrations")
-                        .HasForeignKey("AccountID");
-
                     b.HasOne("LDInsurance.Models.Insurance", "Insurance")
                         .WithMany("InsuranceRegistrations")
                         .HasForeignKey("InsuranceID");
@@ -335,8 +328,6 @@ namespace LDInsurance.Migrations
                     b.HasOne("LDInsurance.Models.Vehicle", "Vehicle")
                         .WithMany("InsuranceRegistrations")
                         .HasForeignKey("VehicleID");
-
-                    b.Navigation("Account");
 
                     b.Navigation("Insurance");
 
@@ -384,8 +375,6 @@ namespace LDInsurance.Migrations
 
             modelBuilder.Entity("LDInsurance.Models.Account", b =>
                 {
-                    b.Navigation("InsuranceRegistrations");
-
                     b.Navigation("Reports");
 
                     b.Navigation("Testimonials");

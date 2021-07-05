@@ -65,8 +65,8 @@ namespace LDInsurance.Controllers
         // GET: Insurances/Create
         public IActionResult Create()
         {
-            ViewData["InsuranceTypeID"] = new SelectList(_context.InsuranceTypes, "ID", "ID");
-            ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "ID");
+            ViewData["InsuranceTypeID"] = new SelectList(_context.InsuranceTypes, "ID", "Name");
+            ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "Type");
             return View();
         }
 
@@ -83,8 +83,8 @@ namespace LDInsurance.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["InsuranceTypeID"] = new SelectList(_context.InsuranceTypes, "ID", "ID", insurance.InsuranceTypeID);
-            ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "ID", insurance.VehicleTypeID);
+            ViewData["InsuranceTypeID"] = new SelectList(_context.InsuranceTypes, "ID", "Name", insurance.InsuranceTypeID);
+            ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "Type", insurance.VehicleTypeID);
             return View(insurance);
         }
 
