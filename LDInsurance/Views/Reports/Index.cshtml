@@ -9,6 +9,9 @@
         <thead>
             <tr>
                 <th>
+                    @Html.DisplayNameFor(model => model.Vehicle)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Location)
                 </th>
                 <th>
@@ -21,6 +24,9 @@
                     @Html.DisplayNameFor(model => model.ClaimAmount)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
                     <a asp-action="Write"><i class="fas fa-edit"></i></a>
                 </th>
             </tr>
@@ -28,26 +34,29 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Vehicle.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Location)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ClaimAmount)
-                    </td>
-                    <th>
-                        <a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye"></i></a>
-                    </th>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vehicle.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClaimAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <th>
+                    <a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye"></i></a><a asp-action="Delete" asp-route-id="@item.ID"><i class="fas fa-trash-alt"></i></a>
+                </th>
+            </tr>
             }
         </tbody>
     </table>

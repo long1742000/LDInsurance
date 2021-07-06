@@ -27,6 +27,7 @@ namespace LDInsurance.Models
         [Required(ErrorMessage = "What's your Username?")]
         public string Username { get; set; }
 
+        [DataType(DataType.Password)]
         [Required(ErrorMessage = "What's your Password?")]
         public string Password { get; set; }
         public bool IsAdmin { get; set; }

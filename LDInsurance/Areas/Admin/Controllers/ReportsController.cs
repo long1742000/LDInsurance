@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LDInsurance.Data;
 using LDInsurance.Models;
-using Microsoft.AspNetCore.Http;
 
-namespace LDInsurance.Controllers
+namespace LDInsurance.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ReportsController : Controller
     {
         private readonly LDInsuranceContext _context;
@@ -20,23 +20,14 @@ namespace LDInsurance.Controllers
             _context = context;
         }
 
-        // GET: Reports
-        public IActionResult Index(int? id)
+        // GET: Admin/Reports
+        public async Task<IActionResult> Index()
         {
-            HttpContext.Session.SetString("PageBeing", "Reports");
-            if (HttpContext.Session.GetInt32("ID") == null)
-            {
-
-                return RedirectToAction("Login", "Accounts");
-            }
-            else
-            {
-                var reportContext = _context.Reports.Where(p => p.AccountID == id);
-                return View(reportContext.ToList());
-            }
+            var lDInsuranceContext = _context.Reports.Include(r => r.Account).Include(r => r.Vehicle);
+            return View(await lDInsuranceContext.ToListAsync());
         }
 
-        // GET: Reports/Details/5
+        // GET: Admin/Reports/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -56,7 +47,7 @@ namespace LDInsurance.Controllers
             return View(report);
         }
 
-        // GET: Reports/Create
+        // GET: Admin/Reports/Create
         public IActionResult Create()
         {
             ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name");
@@ -64,7 +55,7 @@ namespace LDInsurance.Controllers
             return View();
         }
 
-        // POST: Reports/Create
+        // POST: Admin/Reports/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -82,7 +73,7 @@ namespace LDInsurance.Controllers
             return View(report);
         }
 
-        // GET: Reports/Edit/5
+        // GET: Admin/Reports/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,7 +91,7 @@ namespace LDInsurance.Controllers
             return View(report);
         }
 
-        // POST: Reports/Edit/5
+        // POST: Admin/Reports/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -137,7 +128,7 @@ namespace LDInsurance.Controllers
             return View(report);
         }
 
-        // GET: Reports/Delete/5
+        // GET: Admin/Reports/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,7 +148,7 @@ namespace LDInsurance.Controllers
             return View(report);
         }
 
-        // POST: Reports/Delete/5
+        // POST: Admin/Reports/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -171,39 +162,6 @@ namespace LDInsurance.Controllers
         private bool ReportExists(int id)
         {
             return _context.Reports.Any(e => e.ID == id);
-        }
-
-        public IActionResult Write()
-        {
-            HttpContext.Session.SetString("PageBeing", "Reports");
-            if (HttpContext.Session.GetInt32("ID") == null)
-            {
-
-                return RedirectToAction("Login", "Accounts");
-            }
-            else
-            {
-                ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name");
-                ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "Name");
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Write([Bind("ID,AccountID,VehicleID,Location,Date,Rate,ClaimAmount,Status")] Report report)
-        {
-            report.AccountID = HttpContext.Session.GetInt32("ID");
-            report.Status = false;
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(report);
-                _context.SaveChanges();
-                return RedirectToAction("Index", "Accounts");
-            }
-            ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name", report.AccountID);
-            ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "Name", report.VehicleID);
-            return View();
         }
     }
 }

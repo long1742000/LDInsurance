@@ -203,6 +203,7 @@ namespace LDInsurance.Controllers
             insuranceRegistration.AccountID = HttpContext.Session.GetInt32("ID");
             insuranceRegistration.Status = true;
             insuranceRegistration.StartDate = DateTime.Now;
+            insuranceRegistration.EndDate = DateTime.Now.AddDays(365);
 
             if (ModelState.IsValid)
             {
