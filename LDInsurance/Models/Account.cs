@@ -36,5 +36,6 @@ namespace LDInsurance.Models
         public List<Testimonial> Testimonials { get; set; }
         public List<Report> Reports { get; set; }
         public List<InsuranceRegistration> InsuranceRegistrations { get; set; }
+        public List<TransactionHistory> TransactionHistories { get; set; }
     }
 }

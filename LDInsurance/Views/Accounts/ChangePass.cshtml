@@ -1,0 +1,30 @@
+﻿@model LDInsurance.Models.Account
+
+@{
+    ViewData["Title"] = "ChangePass";
+}
+
+<div class="container-fluid" style="height:610px">
+    <div class="col-5" style="margin:0 auto; height: 50px">
+        <p style="text-align:center; font-size:30px; color: forestgreen">Change Password</p>
+    </div>
+    <div class="col-3" style="margin:0 auto; height: 340px; border: solid 3px; border-color: greenyellow; padding-top:20px">
+        <div class="col-11" style="margin:0 auto">
+            <div style="margin:0 auto; color:green; font-size:20px; text-align:center">@ViewBag.Message</div>
+            <form asp-action="ChangePass">
+                <div class="form-group">
+                    <input name="Old" class="form-control" required placeholder="Old password..." />
+                </div>
+                <div class="form-group">
+                    <input name="New" class="form-control" required placeholder="New password..." />
+                </div>
+                <div class="form-group">
+                    <input name="Newconfirm" class="form-control" required placeholder="Confirm new password..."  />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block" style="background-color:greenyellow; color:green"><i class="fa fa-key"></i> Change Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

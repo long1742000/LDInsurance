@@ -22,5 +22,6 @@ namespace LDInsurance.Data
         public DbSet<Report> Reports { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<TransactionHistory> TransactionHistory { get; set; }
     }
 }

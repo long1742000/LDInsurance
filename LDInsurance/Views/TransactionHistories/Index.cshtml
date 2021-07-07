@@ -1,0 +1,45 @@
+﻿@model IEnumerable<LDInsurance.Models.TransactionHistory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid" style="height:610px">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Account)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Card)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Card)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

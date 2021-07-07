@@ -17,6 +17,7 @@
                     <li class="nav-item"><a class="nav-link" asp-controller="Vehicles" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="fa fa-car"></i> Vehicles</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Reports" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="fas fa-file-alt"></i> Reports</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="InsuranceRegistrations" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="fas fa-clipboard-check"></i> Insurances</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="TransactionHistories" asp-action="Index" asp-route-id="@item.ID" style="color:000055"><i class="fas fa-money-check-alt"></i> Transaction histories </a></li>
                     <li class="nav-item"><a href="#" data-toggle="modal" data-target="#logoutModal" class="nav-link" style="color:000055"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
             </nav>
@@ -30,13 +31,13 @@
                             Username:
                         </dt>
                         <dd class="col-sm-10">
-                            @Html.DisplayFor(modelItem => item.Username)
+                            <input read only value="@Html.DisplayFor(modelItem => item.Username)" disabled></input>
                         </dd>
                         <dt class="col-sm-2">
                             Password:
                         </dt>
                         <dd class="col-sm-10">
-                            @Html.DisplayFor(modelItem => item.Password)
+                            <input type="password" read only value="@Html.DisplayFor(modelItem => item.Password)" disabled></input> <a class="btn btn-primary" asp-action="ChangePass" asp-route-id="@item.ID"><i class="fas fa-edit"></i></a>
                         </dd>
                     </dl>
                     <h3 style="color: green">Information: <a asp-action="Edit" asp-route-id="@item.ID"><i class="fas fa-edit"></i></a></h3>

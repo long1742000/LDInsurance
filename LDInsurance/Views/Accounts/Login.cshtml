@@ -4,20 +4,20 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="container-fluid" style="height:610px">
+<div class="container-fluid" style="height:610px"> 
     <div class="col-5" style="margin:0 auto; height: 50px">
         <p style="text-align:center; font-size:30px; color: forestgreen">Welcome</p>
     </div>
-    <div class="col-3" style="margin:0 auto; height: 330px; border: solid 3px; border-color: greenyellow; padding-top:20px">
+    <div class="col-3" style="margin:0 auto; height: 350px; border: solid 3px; border-color: greenyellow; padding-top:20px">
         <div class="col-11" style="margin:0 auto">
-            <div style="margin:0 auto; color:green; font-size:20px; text-align:center">Please Enter Your Account</div>
+            <div style="margin:0 auto; color:green; font-size:20px; text-align:center">Please Enter Your Account<p><br />@ViewBag.ErrorMess</p></div>
             <form asp-action="Login">
                 <div class="form-group">
-                    <input asp-for="Username" class="form-control" placeholder="Username..." />
+                    <input asp-for="Username" class="form-control" placeholder="Username..." required />
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input asp-for="Password" class="form-control" placeholder="Password..." />
+                    <input asp-for="Password" class="form-control" placeholder="Password..." required />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">

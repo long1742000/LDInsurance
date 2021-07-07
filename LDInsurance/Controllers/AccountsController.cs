@@ -27,7 +27,6 @@ namespace LDInsurance.Controllers
             HttpContext.Session.SetString("PageBeing", "Accounts");
             if (HttpContext.Session.GetString("CurrentUser") == null)
             {
-
                 return View("Login");
             }
             return View(_context.Accounts.Where(acc => acc.Username == HttpContext.Session.GetString("CurrentUser")).ToList());
@@ -223,6 +222,44 @@ namespace LDInsurance.Controllers
             else
             {
                 ViewBag.ErrorRegister = "Register Failed!!!";
+                return View();
+            }
+        }
+
+        public IActionResult ChangePass()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ChangePass(string Old, string New, string Newconfirm )
+        {
+            if (ModelState.IsValid) 
+            {
+                Account user = _context.Accounts.Where(acc => acc.Username == HttpContext.Session.GetString("CurrentUser")).FirstOrDefault();
+                if(Old == user.Password)
+                {
+                    if(New == Newconfirm)
+                    {
+                        user.Password = Newconfirm;
+                        _context.Accounts.Update(user);
+                        _context.SaveChanges();
+                        return RedirectToAction("Index", "Accounts");
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Confirm new password is not correct ";
+                        return View();
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = "Old password is not correct ";
+                    return View();
+                }
+            }
+            else
+            {
                 return View();
             }
         }

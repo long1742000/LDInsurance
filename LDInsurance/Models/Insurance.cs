@@ -17,5 +17,6 @@ namespace LDInsurance.Models
         public int Period { get; set; }
         public bool Status { get; set; }
         public List<InsuranceRegistration> InsuranceRegistrations { get; set; }
+        public List<TransactionHistory> TransactionHistories { get; set; }
     }
 }

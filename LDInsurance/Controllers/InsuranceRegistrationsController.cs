@@ -170,7 +170,7 @@ namespace LDInsurance.Controllers
             var insuranceRegistration = await _context.InsuranceRegistrations.FindAsync(id);
             _context.InsuranceRegistrations.Remove(insuranceRegistration);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Accounts");
         }
 
         private bool InsuranceRegistrationExists(int id)
@@ -217,9 +217,5 @@ namespace LDInsurance.Controllers
             return View();
         }
 
-        public IActionResult Pay()
-        {
-            return View();
-        }
     }
 }
