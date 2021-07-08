@@ -15,34 +15,33 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <label asp-for="AccountID" class="control-label"></label>
-                <select asp-for="AccountID" class="form-control" asp-items="ViewBag.AccountID"></select>
+                <input type="hidden" asp-for="AccountID" class="form-control" asp-items="ViewBag.AccountID"></input>
                 <span asp-validation-for="AccountID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VehicleID" class="control-label"></label>
-                <select asp-for="VehicleID" class="form-control" asp-items="ViewBag.VehicleID"></select>
+                <input type="hidden" asp-for="VehicleID" class="form-control" asp-items="ViewBag.VehicleID"></input>
                 <span asp-validation-for="VehicleID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
+                <input type="hidden" asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
+                <input type="hidden" asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Rate" class="control-label"></label>
-                <input asp-for="Rate" class="form-control" />
+                <input type="hidden" asp-for="Rate" class="form-control" />
                 <span asp-validation-for="Rate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ClaimAmount" class="control-label"></label>
-                <input asp-for="ClaimAmount" class="form-control" />
+                <input type="hidden" asp-for="ClaimAmount" class="form-control" />
                 <span asp-validation-for="ClaimAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Checker" class="control-label"></label>
+                <input asp-for="Checker" class="form-control" placeholder="Checker's name... " />
+                <span asp-validation-for="Checker" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

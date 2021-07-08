@@ -4,14 +4,16 @@ using LDInsurance.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LDInsurance.Migrations
 {
     [DbContext(typeof(LDInsuranceContext))]
-    partial class LDInsuranceContextModelSnapshot : ModelSnapshot
+    [Migration("20210708085917_updaterp")]
+    partial class updaterp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,16 +69,10 @@ namespace LDInsurance.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Confirm")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("InsuranceRegistrationID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReportID")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -85,8 +81,6 @@ namespace LDInsurance.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("InsuranceRegistrationID");
-
-                    b.HasIndex("ReportID");
 
                     b.ToTable("Expenses");
                 });
@@ -349,13 +343,7 @@ namespace LDInsurance.Migrations
                         .WithMany("Expenses")
                         .HasForeignKey("InsuranceRegistrationID");
 
-                    b.HasOne("LDInsurance.Models.Report", "Report")
-                        .WithMany("Expenses")
-                        .HasForeignKey("ReportID");
-
                     b.Navigation("InsuranceRegistration");
-
-                    b.Navigation("Report");
                 });
 
             modelBuilder.Entity("LDInsurance.Models.Insurance", b =>
@@ -476,11 +464,6 @@ namespace LDInsurance.Migrations
             modelBuilder.Entity("LDInsurance.Models.InsuranceType", b =>
                 {
                     b.Navigation("Insurances");
-                });
-
-            modelBuilder.Entity("LDInsurance.Models.Report", b =>
-                {
-                    b.Navigation("Expenses");
                 });
 
             modelBuilder.Entity("LDInsurance.Models.Vehicle", b =>

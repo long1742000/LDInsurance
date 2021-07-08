@@ -21,10 +21,16 @@ namespace LDInsurance.Areas.Admin.Controllers
         }
 
         // GET: Admin/Reports
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(bool check)
         {
-            var lDInsuranceContext = _context.Reports.Include(r => r.Account).Include(r => r.Vehicle);
-            return View(await lDInsuranceContext.ToListAsync());
+            var checkContext = _context.Reports.Where(c => c.Status == false);
+            return View(checkContext.ToList());
+        }
+
+        public async Task<IActionResult> Checked(bool check)
+        {
+            var checkContext = _context.Reports.Where(c => c.Status == true);
+            return View(checkContext.ToList());
         }
 
         // GET: Admin/Reports/Details/5
@@ -69,7 +75,7 @@ namespace LDInsurance.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name", report.AccountID);
-            ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "ID", report.VehicleID);
+            ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "Name", report.VehicleID);
             return View(report);
         }
 
@@ -87,7 +93,7 @@ namespace LDInsurance.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name", report.AccountID);
-            ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "ID", report.VehicleID);
+            ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "Name", report.VehicleID);
             return View(report);
         }
 
@@ -96,7 +102,7 @@ namespace LDInsurance.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,AccountID,VehicleID,Location,Date,Rate,ClaimAmount,Status")] Report report)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,AccountID,VehicleID,Location,Date,Rate,ClaimAmount,Checker,Status")] Report report)
         {
             if (id != report.ID)
             {
@@ -124,7 +130,7 @@ namespace LDInsurance.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "Name", report.AccountID);
-            ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "ID", report.VehicleID);
+            ViewData["VehicleID"] = new SelectList(_context.Vehicles, "ID", "Name", report.VehicleID);
             return View(report);
         }
 
@@ -163,5 +169,6 @@ namespace LDInsurance.Areas.Admin.Controllers
         {
             return _context.Reports.Any(e => e.ID == id);
         }
+
     }
 }

@@ -16,6 +16,8 @@ namespace LDInsurance.Models
         public DateTime Date { get; set; }
         public int Rate { get; set; }
         public int ClaimAmount { get; set; }
+        public string Checker { get; set; }
         public bool Status { get; set; }
+        public List<Expense> Expenses { get; set; }
     }
 }

@@ -19,6 +19,8 @@
     <!-- Custom styles for this template-->
     <link href="~/themes/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+
 </head>
 
 <body id="page-top">
@@ -30,8 +32,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="Admin" asp-controller="InsuranceTypes" asp-action="Index">
-                <div class="sidebar-brand-text mx-3">LD Admin <sup></sup></div>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">LD <sup>Admin</sup></div>
             </a>
 
             <!-- Divider -->
@@ -43,12 +48,40 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
-            </li>       
-           
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" asp-area="Admin" asp-controller="Accounts" asp-action="Index">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Accounts</span>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>User Accounts</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="InsuranceRegistrations" asp-action="Index">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Insurances</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Vehicles" asp-action="index">
+                    <i class="fas fa-fw fa-car"></i>
+                    <span>Vehicles</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Reports" asp-action="Index">
+                    <i class="fas fa-fw fa-check"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="InsuranceRegistrations" asp-action="End">
+                    <i class="fas fa-fw fa-check"></i>
+                    <span>Check</span>
                 </a>
             </li>
 
@@ -59,7 +92,7 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-      
+
         </ul>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
@@ -128,20 +161,11 @@
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                @RenderBody();
+                @RenderBody()
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
@@ -189,6 +213,13 @@
     <!-- Page level custom scripts -->
     <script src="~/themes/js/demo/chart-area-demo.js"></script>
     <script src="~/themes/js/demo/chart-pie-demo.js"></script>
+
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
 
 </body>
 

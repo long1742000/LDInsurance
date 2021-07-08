@@ -10,6 +10,9 @@ namespace LDInsurance.Models
         public int ID { get; set; }
         public int? InsuranceRegistrationID { get; set; }
         public InsuranceRegistration InsuranceRegistration { get; set; }
+        public int? ReportID { get; set; }
+        public Report Report { get; set; }
+        public string Confirm { get; set; }       
         public DateTime Date { get; set; }
         public int Amount { get; set; }
         public bool Status { get; set; }

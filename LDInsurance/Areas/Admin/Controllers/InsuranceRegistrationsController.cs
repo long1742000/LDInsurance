@@ -27,6 +27,21 @@ namespace LDInsurance.Areas.Admin.Controllers
             return View(await lDInsuranceContext.ToListAsync());
         }
 
+        public async Task<IActionResult> InMonth(DateTime month)
+        {
+            month = DateTime.Now;
+            var lDInsuranceContext = _context.InsuranceRegistrations.Where(m => m.StartDate.Month == month.Month);
+            return View(await lDInsuranceContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> End(DateTime month)
+        {
+            month = DateTime.Now;
+            var lDInsuranceContext = _context.InsuranceRegistrations.Where(m => m.EndDate <= month);
+            return View(await lDInsuranceContext.ToListAsync());
+        }
+
+
         // GET: Admin/InsuranceRegistrations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
