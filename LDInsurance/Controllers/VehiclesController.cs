@@ -199,7 +199,7 @@ namespace LDInsurance.Controllers
                 {
                     _context.Add(vehicle);
                     _context.SaveChanges();
-                    return RedirectToAction("Index", "Insurances");
+                    return RedirectToAction("Index", "Accounts");
                 }
                 ViewData["AccountID"] = new SelectList(_context.Accounts, "ID", "ID", vehicle.AccountID);
                 ViewData["VehicleTypeID"] = new SelectList(_context.VehicleTypes, "ID", "ID", vehicle.VehicleTypeID);

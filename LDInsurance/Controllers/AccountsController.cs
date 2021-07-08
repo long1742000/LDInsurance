@@ -263,5 +263,10 @@ namespace LDInsurance.Controllers
                 return View();
             }
         }
+
+        public IActionResult Sitemap()
+        {
+            return View();
+        }
     }
 }

@@ -4,12 +4,18 @@
     ViewData["Title"] = "Pay";
 }
 
-<div class="container" style="height:610px">
-    <div class="row">
-        <div class="col-md-4">
+
+<div class="container-fluid" style="height: 610px">
+    <div class="col-5" style="margin:0 auto; height: 50px">
+        <p style="text-align:center; font-size:30px; color: forestgreen">Online payment</p>
+    </div>
+    <div class="col-3" style="margin:0 auto; height: 350px; border: solid 3px; border-color: greenyellow; padding-top:20px">
+        <div class="col-11" style="margin:0 auto">
+            <div style="margin:0 auto; color:green; font-size:20px; text-align:center">Please Enter Your Card</div>
             <form asp-action="Pay">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                Choose your bank
+                <br />
+                <p style="font-size:20px; color: green">Choose your bank</p>
                 <select name="cars" id="cars">
                     <option value="vietcombank">Vietcombank</option>
                     <option value="dongabank">Dong A Bank</option>
@@ -17,13 +23,12 @@
                     <option value="sacombank">Sacombank</option>
                 </select>
                 <div class="form-group">
-                    <label asp-for="Card" class="control-label"></label>
-                    <input asp-for="Card" class="form-control" />
+                    <br />
+                    <input asp-for="Card" class="form-control" placeholder="Card number" required />
                     <span asp-validation-for="Card" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Price" class="control-label"></label> (Please enter correct insurance amount)
-                    <input asp-for="Price" class="form-control" />
+                    <input asp-for="Price" class="form-control" placeholder="Price (Please enter correct insurance amount)" required />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="form-group">
