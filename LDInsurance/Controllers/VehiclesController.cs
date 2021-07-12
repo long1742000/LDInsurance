@@ -31,8 +31,8 @@ namespace LDInsurance.Controllers
             }
             else
             {
-                var vehicleContext = _context.Vehicles.Where(p => p.AccountID == id);
-                return View(vehicleContext.ToList());
+                var vehicleContext = _context.Vehicles.Where(p => p.AccountID == id).Include(i => i.VehicleType).ToList();
+                return View(vehicleContext);
             }
         }
 

@@ -6,9 +6,6 @@
 }
 
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <a asp-action="Create" class="btn btn-success text-white"><i class="fas fa-random"></i>Create New</a>
-    </div>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
@@ -39,10 +36,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.VehicleType)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Status)
-                            </th>
-                            <th></th>
+                           <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,19 +68,9 @@
                                     @Html.DisplayFor(modelItem => item.VehicleType.ID)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
+                                    <a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye"></i></a>                                    
                                 </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-success btn-circle btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-circle btn-sm">
-                                        <i class="fas fa-info-circle"></i>
-                                    </a>
-                                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-circle btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
+
                             </tr>
                         }
                     </tbody>

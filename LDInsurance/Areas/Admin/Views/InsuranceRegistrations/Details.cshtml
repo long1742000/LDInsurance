@@ -6,60 +6,48 @@
 }
 
 <div class="container-fluid">
-    <h1>Details</h1>
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Details</h4>
+                <p class="card-description"> InsuranceRegistration </p>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th scope="row">@Html.DisplayNameFor(model => model.Account)</th>
+                            <td>@Html.DisplayFor(model => model.Account.Name)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">@Html.DisplayNameFor(model => model.Vehicle)</th>
+                            <td>@Html.DisplayFor(model => model.Vehicle.ID)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">@Html.DisplayNameFor(model => model.Insurance)</th>
+                            <td>@Html.DisplayFor(model => model.Insurance.ID)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">@Html.DisplayNameFor(model => model.StartDate)</th>
+                            <td>@Html.DisplayFor(model => model.StartDate)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">@Html.DisplayNameFor(model => model.EndDate)</th>
+                            <td>@Html.DisplayFor(model => model.EndDate)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">@Html.DisplayNameFor(model => model.Price)</th>
+                            <td>@Html.DisplayFor(model => model.Price)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">@Html.DisplayNameFor(model => model.Status)</th>
+                            <td>@Html.DisplayFor(model => model.Status)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a asp-action="Index" class="btn btn-danger">
+                    <span class="text">Cancel</span>
+                </a>
 
-    <div>
-        <h4>InsuranceRegistration</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Account)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Account.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Vehicle)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Vehicle.ID)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Insurance)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Insurance.ID)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.StartDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.StartDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.EndDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.EndDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Price)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Status)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Status)
-            </dd>
-        </dl>
+            </div>
+        </div>
     </div>
-    <div>
-        <a asp-action="Index" class="btn btn-secondary">
-            <span class="text">Back to List</span>
-        </a>
-    </div>
-
 </div>

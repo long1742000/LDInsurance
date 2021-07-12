@@ -30,8 +30,8 @@ namespace LDInsurance.Controllers
             }
             else
             {
-                var vehicleContext = _context.InsuranceRegistrations.Where(p => p.AccountID == id);
-                return View(vehicleContext.ToList());
+                var vehicleContext = _context.InsuranceRegistrations.Where(p => p.AccountID == id).Include(i => i.Insurance).Include(i => i.Vehicle).ToList();
+                return View(vehicleContext);
             }
         }
 
@@ -201,7 +201,7 @@ namespace LDInsurance.Controllers
         public IActionResult Register([Bind("ID,AccountID,VehicleID,InsuranceID,StartDate,EndDate,Price,Status")] InsuranceRegistration insuranceRegistration)
         {
             insuranceRegistration.AccountID = HttpContext.Session.GetInt32("ID");
-            insuranceRegistration.Status = true;
+            insuranceRegistration.Status = false;
             insuranceRegistration.StartDate = DateTime.Now;
             insuranceRegistration.EndDate = DateTime.Now.AddDays(365);
 

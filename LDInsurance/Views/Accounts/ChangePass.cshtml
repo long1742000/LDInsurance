@@ -4,13 +4,17 @@
     ViewData["Title"] = "ChangePass";
 }
 
+
+<div class="alert-danger hide" style="text-align: center">
+    @ViewBag.Message
+</div>
+
 <div class="container-fluid" style="height:610px">
     <div class="col-5" style="margin:0 auto; height: 50px">
         <p style="text-align:center; font-size:30px; color: forestgreen">Change Password</p>
     </div>
     <div class="col-3" style="margin:0 auto; height: 340px; border: solid 3px; border-color: greenyellow; padding-top:20px">
         <div class="col-11" style="margin:0 auto">
-            <div style="margin:0 auto; color:green; font-size:20px; text-align:center">@ViewBag.Message</div>
             <form asp-action="ChangePass">
                 <div class="form-group">
                     <input type="password" name="Old" class="form-control" required placeholder="Old password..." />

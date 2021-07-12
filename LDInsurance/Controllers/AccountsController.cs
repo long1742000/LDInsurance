@@ -177,13 +177,13 @@ namespace LDInsurance.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Insurances", new { area = "Admin" });
+                    return RedirectToAction("Index", "Accounts", new { area = "Admin" });
                 }
             }
             else
             {
                 HttpContext.Session.SetInt32("Id", Convert.ToInt32(-1));
-                ViewBag.ErrorMess = "Login Fail !!!!!!!!!!!!!";
+                ViewBag.ErrorMess = "Wrong password";
                 return View();
             }
         }
@@ -239,7 +239,12 @@ namespace LDInsurance.Controllers
                 Account user = _context.Accounts.Where(acc => acc.Username == HttpContext.Session.GetString("CurrentUser")).FirstOrDefault();
                 if(Old == user.Password)
                 {
-                    if(New == Newconfirm)
+                    if(Old == New)
+                    {
+                        ViewBag.Message = "You entered the new password with the old password";
+                        return View();
+                    }
+                    else if(New == Newconfirm)
                     {
                         user.Password = Newconfirm;
                         _context.Accounts.Update(user);
@@ -248,13 +253,13 @@ namespace LDInsurance.Controllers
                     }
                     else
                     {
-                        ViewBag.Message = "Confirm new password is not correct ";
+                        ViewBag.Message = "Confirm new password is not correct";
                         return View();
                     }
                 }
                 else
                 {
-                    ViewBag.Message = "Old password is not correct ";
+                    ViewBag.Message = "Old password is not correct";
                     return View();
                 }
             }

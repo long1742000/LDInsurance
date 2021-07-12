@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LDInsurance.Migrations
 {
     [DbContext(typeof(LDInsuranceContext))]
-    [Migration("20210708111848_update9")]
-    partial class update9
+    [Migration("20210712110349_update11")]
+    partial class update11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

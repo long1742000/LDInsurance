@@ -6,8 +6,6 @@
 }
 
 <div class="container-fluid">
-
-    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">User Accounts</h1>
         <a asp-action="Create" class="btn btn-success text-white"><i class="fas fa-random"></i>New Account</a>
@@ -19,15 +17,6 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Name)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Phone)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.SSN)
-                            </th>
-                            <th>
                                 @Html.DisplayNameFor(model => model.Username)
                             </th>
                             <th>
@@ -35,9 +24,6 @@
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.IsAdmin)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Status)
                             </th>
                             <th>
                             </th>
@@ -48,15 +34,6 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Phone)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SSN)
-                                </td>
-                                <td>
                                     @Html.DisplayFor(modelItem => item.Username)
                                 </td>
                                 <td>
@@ -66,19 +43,12 @@
                                     @Html.DisplayFor(modelItem => item.IsAdmin)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-success btn-circle btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>                                  
-                                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-circle btn-sm">
-                                        <i class="fas fa-info-circle"></i>
+                                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-outline-info">
+                                        <span class="text">Details</span>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-circle btn-sm">
-                                        <i class="fas fa-trash"></i>
+                                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-outline-danger">
+                                        <span class="text">Delete</span>
                                     </a>
-                                </td>
                             </tr>
                         }
                     </tbody>

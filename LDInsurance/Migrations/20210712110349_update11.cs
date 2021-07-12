@@ -2,7 +2,7 @@
 
 namespace LDInsurance.Migrations
 {
-    public partial class update9 : Migration
+    public partial class update11 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
